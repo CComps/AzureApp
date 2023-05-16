@@ -1,0 +1,164 @@
+{
+  "intents": [
+    {
+      "tag": "dôvera_prihlasenie",
+      "patterns": [
+        "prihlásenia",
+        "Chcem sa prihlásiť",
+        "stránka prihlásenia",
+        "Prihlás ma",
+        "Login stránku",
+        "Idem sa prihlásiť",
+        "kde sa registrujem",
+        "kde sa prihlásim",
+        "ako sa prihlásim",
+        "pomož mi sa prihlásiť",
+        "registrovať",
+        "prihlás ma",
+        "potrebujem prihlásiť"
+      ],
+      "response": [
+        "https://ep.dovera.sk/Login.aspx?ReturnUrl=%2f",
+        "https://ep.dovera.sk/Login"
+      ]
+    },
+    {
+      "tag": "dôvera_poistenie",
+      "patterns": [
+        "Chcem poistenie",
+        "chcel by som sa poistit",
+        "Ako sa poistiť",
+        "Chcem byt poistenec",
+        "Chcem sa poistit",
+        "Chcem sa prepoistit",
+        "chcel by som sa stat poistencom"
+      ],
+      "response": [
+        "https://prihlaska.dovera.sk/formular",
+        "https://www.dovera.sk/poistenec/poistite-sa-za-3-minuty"
+      ]
+    },
+    {
+      "tag": "dôvera_benefity",
+      "patterns": [
+        "benefity",
+        "chcem vidieť benefity",
+        "Aké benefity ma Dôvera",
+        "Ukáž mi vsetky benefity",
+        "Aký ma Dôvera najlepší benefit",
+        "kde nájdem benefity",
+        "porovnať benefity",
+        "k benefitom",
+        "ku benefitom",
+        "o benefitoch",
+        "tu o benefitoch",
+        "ukaž mi zoznam všetkých benefitov"
+      ],
+      "response": [
+        "https://www.dovera.sk/poistenec/preco-byt-v-dovere#vsetky",
+        "https://www.dovera.sk/poistenec/benefity/vsetky/vratime-az-300-eur-za-lieky-rodicom-aj-detom"
+      ]
+    },
+    {
+      "tag": "dôvera_pobocky",
+      "patterns": [
+        "pobocky",
+        "chcem pobocku",
+        "zoznam pobociek",
+        "vsetky pobocky",
+        "navsteva pobocky",
+        "pobocka v bratislave",
+        "pobocka v meste",
+        "najblizsia pobocka",
+        "doverackym pobockam",
+        "velka pobocka",
+        "ukáž mi stránku pobočiek",
+        "chcem vidieť všetky pobočky",
+        "mozem vidiet stranku pobociek?"
+      ],
+      "response": [
+        "https://www.dovera.sk/pobocky",
+        "https://www.dovera.sk/pobocky"
+      ]
+    },
+    {
+      "tag": "dôvera_prepoistit",
+      "patterns": [
+        "chcem zmenit poisťovňu",
+        "chcem sa prepoistit",
+        "prepoistiť sa",
+        "ako sa prepoistiť",
+        "stránku prepoistenia",
+        "podmienky prepoistenia",
+        "môžem sa prepoistiť",
+        "prepoistiť rodinu"
+      ],
+      "response": [
+        "https://www.dovera.sk/poistenec/poistite-sa-za-3-minuty",
+        "https://prihlaska.dovera.sk/formular"
+      ]
+    },
+    {
+      "tag": "dôvera_kontakt",
+      "patterns": [
+        "kontakt",
+        "chcem váš kontakt",
+        "potrebujem váš kontakt",
+        "chcel by som váš kontakt",
+        "potrebujem kontakt",
+        "kontaktovať Dôveru",
+        "potrebujem kontakt na Dôveru",
+        "sídlo Dôvery",
+        "kontakty",
+        "kontaktovať",
+        "kontaktujem",
+        "skontaktovať",
+        "vaše kontakty"
+      ],
+      "response": [
+        "https://www.dovera.sk/poistenec/potrebujem-poradit/kontakt",
+        "https://www.dovera.sk/poistenec/potrebujem-poradit/kontakt"
+      ]
+    },
+    {
+      "tag": "Cintorínska",
+      "patterns": [
+        "Bratislava Cintorínska",
+        "cintorín",
+        "pobočka Bratislava Cintorínska",
+        "pobočka Cintorínska",
+        "Cintorinskej",
+        "na Cintorínskej pobočku",
+        "pobočku na Cintorínskej",
+        "Cintorínska 7",
+        "ondrejovský cintorín",
+        "otváracie hodiny Cintorínska",
+        "otváracie hodiny na Cintorínskej v Bratislave",
+        "Cintorínska v Bratislave",
+        "pobočka blava Cintorínska"
+      ],
+      "response": [
+        "https://www.dovera.sk/pobocky/22-bratislava-cintorinska",
+        "https://www.dovera.sk/pobocky/22-bratislava-cintorinska"
+      ]
+    },
+    {
+      "tag": "Digital_Park",
+      "patterns": [
+        "pobočku DigitalPark",
+        "Digital Park",
+        "Bratislava Digital Park 3",
+        "v Digital Parku",
+        "na Digital Park pobočke",
+        "sídlo spoločnosti",
+        "Digi Park",
+        "otváracie hodiny Digital Park v Bratislave",
+        "Digital Park v Bratislave"
+      ],
+      "response": [
+        "https://www.dovera.sk/pobocky/186-bratislava-digital-park-iii",
+        "https://www.dovera.sk/pobocky/186-bratislava-digital-park-iii"
+      ]
+    }
+  ]
+}
