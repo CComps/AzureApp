@@ -1,70 +1,17 @@
 import os
-import speech_recognition as sr  # pip install speechrecognition
 import random
 import json
 import pickle
 import numpy as np
 import nltk
 import time
-import miniaudio
 import webbrowser
-from mutagen.mp3 import MP3
 from nltk.stem import WordNetLemmatizer
 from tensorflow.keras.models import load_model
 from gtts import gTTS
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-
-listener = sr.Recognizer()
-
-
-def say(text):
-    try:
-        print("    ")
-        print("-------------------")
-        print("    ")
-        print(f"Vera: {text}")
-        print("    ")
-        print("-------------------")
-        print("    ")
-        tts = gTTS(text=text, lang="sk", slow=False)
-        tts.save("1.mp3")
-        file = "1.mp3"
-        audio = MP3(file)
-        length = audio.info.length
-        stream = miniaudio.stream_file(file)
-
-        with miniaudio.PlaybackDevice() as device:
-            device.start(stream)
-            time.sleep(length)
-    except:
-        pass
-
-
-def VeraPrinText(audio):
-    print("    ")
-    print("-------------------")
-    print("    ")
-    print(f"Vera: {audio}")
-    print("    ")
-    print("-------------------")
-    print("    ")
-
-
-def takeCommand():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        audio = r.listen(source, 0, 15)
-
-        try:
-            query = r.recognize_google(audio, language="sk-sk")  # en-in
-            print(f"povedal si: {query}\n")  # User query will be printed.
-
-        except Exception as e:
-            return "None"
-    return query
-
 
 lemmatizer = WordNetLemmatizer()
 intents = json.loads(open("intents.json", encoding="utf-8").read())
@@ -114,7 +61,7 @@ def get_response(intents_list, intents_json):
 
 
 @app.route("/", methods=["GET"])
-def chatbot():
+def home():
     text = request.args.get("text")
     if text is not None:
         ints = predict_class(text)
@@ -131,8 +78,8 @@ def chatbot():
             response = {"answer": res, "question": text}
             return jsonify(response)
     else:
-        return "Please provide a text parameter.", 400
+        return "Please provide a text parameter."
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=4500)
