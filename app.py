@@ -132,3 +132,7 @@ def chatbot():
             return jsonify(response)
     else:
         return "Please provide a text parameter.", 400
+
+
+if __name__ == "__main__":
+    app.run()
