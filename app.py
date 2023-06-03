@@ -2,6 +2,7 @@ import os
 import random
 import json
 import pickle
+import sys
 import numpy as np
 import nltk
 import time
@@ -51,6 +52,7 @@ def upload_file():
         file.save(filename)
         try:
             subprocess.Popen(["python", "training.py"])
+            os.execv(sys.executable, ["python"] + sys.argv)
             return "File uploaded and model training started", 200
         except Exception as e:
             return str(e), 500
