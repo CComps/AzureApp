@@ -9,7 +9,7 @@ import webbrowser
 from nltk.stem import WordNetLemmatizer
 from tensorflow.keras.models import load_model
 from gtts import gTTS
-from flask import Flask, request, jsonify
+from flask import Flask, render_template_string, request, jsonify
 import subprocess
 from werkzeug.utils import secure_filename
 
@@ -39,21 +39,32 @@ def clean_up_sentence(sentence):
     return sentence_words
 
 
-@app.route("/uploadfile", methods=["POST"])
+@app.route("/uploadfile", methods=["GET", "POST"])
 def upload_file():
-    if "file" not in request.files:
-        return "No file part", 400
-    file = request.files["file"]
-    filename = secure_filename(file.filename)  # type: ignore
-    if filename != "intents.json":
-        return "Wrong file name", 400
-    file.save(filename)
-    try:
-        # Spustenie skriptu training.py ako samostatného procesu
-        subprocess.Popen(["python", "training.py"])
-        return "File uploaded and model training started", 200
-    except Exception as e:
-        return str(e), 500
+    if request.method == "POST":
+        if "file" not in request.files:
+            return "No file part", 400
+        file = request.files["file"]
+        filename = secure_filename(file.filename)  # type: ignore
+        if filename != "intents.json":
+            return "Wrong file name", 400
+        file.save(filename)
+        try:
+            subprocess.Popen(["python", "training.py"])
+            return "File uploaded and model training started", 200
+        except Exception as e:
+            return str(e), 500
+    return render_template_string(
+        """
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form method=post enctype=multipart/form-data>
+      <input type=file name=file style="margin: 30px 0;">
+      <input type=submit value=Upload>
+    </form>
+    """
+    )
 
 
 def bag_of_words(sentence):
