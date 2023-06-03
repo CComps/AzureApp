@@ -10,11 +10,15 @@ from nltk.stem import WordNetLemmatizer
 from tensorflow.keras.models import load_model
 from gtts import gTTS
 from flask import Flask, request, jsonify
+import subprocess
+from werkzeug.utils import secure_filename
 
 try:
     nltk.download("punkt")
     nltk.download("wordnet")
     nltk.download("omw-1.4")
+    nltk.download("stopwords")
+    nltk.download("averaged_perceptron_tagger")
     nltk.download("*")
 except:
     pass
@@ -33,6 +37,23 @@ def clean_up_sentence(sentence):
     sentence_words = nltk.word_tokenize(sentence)
     sentence_words = [lemmatizer.lemmatize(word) for word in sentence_words]
     return sentence_words
+
+
+@app.route("/uploadfile", methods=["POST"])
+def upload_file():
+    if "file" not in request.files:
+        return "No file part", 400
+    file = request.files["file"]
+    filename = secure_filename(file.filename)  # type: ignore
+    if filename != "intents.json":
+        return "Wrong file name", 400
+    file.save(filename)
+    try:
+        # Spustenie skriptu training.py ako samostatného procesu
+        subprocess.Popen(["python", "training.py"])
+        return "File uploaded and model training started", 200
+    except Exception as e:
+        return str(e), 500
 
 
 def bag_of_words(sentence):
