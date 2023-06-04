@@ -2,6 +2,7 @@ import os
 import random
 import json
 import pickle
+import signal
 import sys
 import numpy as np
 import nltk
@@ -38,6 +39,27 @@ def clean_up_sentence(sentence):
     sentence_words = nltk.word_tokenize(sentence)
     sentence_words = [lemmatizer.lemmatize(word) for word in sentence_words]
     return sentence_words
+
+
+def run():
+    """Spustite server."""
+    try:
+        app.run(host="0.0.0.0", port=8000)
+    except KeyboardInterrupt:
+        print("Server is shutting down...")
+        sys.exit(0)
+    finally:
+        # Ak sa aplikácia ukončila, spustite ju znova.
+        print("Restarting server...")
+        run()
+
+
+@app.route("/restart", methods=["POST"])
+def restart():
+    """Handler pre cestu /restart. Táto cesta prijíma iba POST požiadavky."""
+    time.sleep(1)  # Dajte serveru chvíľu na zodpovedanie na požiadavku
+    os.kill(os.getpid(), signal.SIGINT)  # Pošlite signál na ukončenie tomuto procesu
+    return "Server is restarting..."
 
 
 @app.route("/uploadfile", methods=["GET", "POST"])
@@ -124,4 +146,4 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run()
+    run()
