@@ -2,7 +2,6 @@ import os
 import random
 import json
 import pickle
-import signal
 import sys
 import numpy as np
 import nltk
@@ -83,13 +82,42 @@ def train_model():
     model.save("chatbotmodel.h5", mychatbotmodel)
     print("Done")
 
-train_model()
 model = load_model("chatbotmodel.h5")
 
 def clean_up_sentence(sentence):
     sentence_words = nltk.word_tokenize(sentence)
     sentence_words = [lemmatizer.lemmatize(word) for word in sentence_words]
     return sentence_words
+
+@app.route("/uploadfile", methods=["GET", "POST"])
+def upload_file():
+    if request.method == "POST":
+        if "file" not in request.files:
+            return "No file part", 400
+        file = request.files["file"]
+        filename = secure_filename(file.filename)  # type: ignore
+        if filename != "intents.json":
+            return "Wrong file name", 400
+        file.save(filename)
+        try:
+            train_model()  # Spustite trénovanie modelu
+            os.execv(sys.executable, ["python"] + sys.argv)
+            return "File uploaded and model training started", 200
+        except Exception as e:
+            return str(e), 500
+    return render_template_string(
+        """
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <form method=post enctype=multipart/form-data>
+      <input type=file name=file style="margin: 30px 0;">
+      <input type=submit value=Upload>
+    </form>
+    """
+    )
+
+
 
 def bag_of_words(sentence):
     sentence_words = clean_up_sentence(sentence)
@@ -154,28 +182,6 @@ def restart():
     os.kill(os.getpid(), signal.SIGINT)
     return "Server is restarting..."
 
-@app.route("/uploadfile", methods=["GET", "POST"])
-def upload_file():
-    if request.method == "POST":
-        if "file" not in request.files:
-            return "No file part", 400
-        file = request.files["file"]
-        filename = secure_filename(file.filename)
-        if filename != "intents.json":
-            return "Wrong file name", 400
-        file.save(filename)
-        train_model()
-        os.execv(sys.executable, ["python"] + sys.argv)
-
-    return render_template_string("""
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file style="margin: 30px 0;">
-      <input type=submit value=Upload>
-    </form>
-    """)
 
 if __name__ == "__main__":
     run()
