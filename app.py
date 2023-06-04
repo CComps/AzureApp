@@ -23,7 +23,7 @@ words = pickle.load(open("words.pkl", "rb"))
 classes = pickle.load(open("classes.pkl", "rb"))
 
 def train_model():
-    lemmetizer = WordNetLemmatizer()
+    lemmetizer = WordNetLemmetizer()
     intents = json.loads(open("intents.json", encoding="utf-8").read())
     words = []
     classes = []
