@@ -159,6 +159,27 @@
         "https://www.dovera.sk/pobocky/186-bratislava-digital-park-iii",
         "https://www.dovera.sk/pobocky/186-bratislava-digital-park-iii"
       ]
+    },
+    {
+      "tag": "dôvera_nemocnica bezplatne",
+      "patterns": [
+        "nemocnica bezplatne",
+        "chcem vidieť nemocnice bezplatne",
+        "nemocnica bory",
+        "Najmodernejšia nemocnica bezplatne",
+        "Môžem využiť zdravotnú starostlivosť v Nemocnici Bory aj ja",
+        "Čo potrebujem na ošetrenie v Nemocnici Bory",
+        "Čo nájdete v Nemocnici Bory",
+        "Aké sú výhody Nemocnice Bory",
+        "Čo v Nemocnici Bory nenájdete",
+        "ako sa dostanem do nemocnice",
+        "ako by som sa mohol dostat do nemocnice",
+        "nemocnice bezplatne"
+      ],
+      "response": [
+        "https://www.dovera.sk/poistenec/benefity/vsetky/najmodernejsia-nemocnica-bezplatne",
+        "https://www.dovera.sk/poistenec/benefity/vsetky/najmodernejsia-nemocnica-bezplatne"
+      ]
     }
   ]
 }
