@@ -112,9 +112,9 @@ def upload_file():
             return "Wrong file name", 400
         file.save(filename)
         try:
-            train_model()  # Spustite trénovanie modelu
+            train_model()
+            model = load_model("chatbotmodel.h5")
             os.execv(sys.executable, ["python"] + sys.argv)
-            return "File uploaded and model training started", 200
         except Exception as e:
             return str(e), 500
     return render_template_string(
