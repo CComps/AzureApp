@@ -22,8 +22,9 @@ intents = json.loads(open("intents.json", encoding="utf-8").read())
 words = pickle.load(open("words.pkl", "rb"))
 classes = pickle.load(open("classes.pkl", "rb"))
 
+
 def train_model():
-    lemmetizer = WordNetLemmetizer()
+    lemmatizer = WordNetLemmatizer()
     intents = json.loads(open("intents.json", encoding="utf-8").read())
     words = []
     classes = []
@@ -38,7 +39,7 @@ def train_model():
             if intent["tag"] not in classes:
                 classes.append(intent["tag"])
 
-    words = [lemmetizer.lemmatize(word) for word in words if word not in ignore_letters]
+    words = [lemmatizer.lemmatize(word) for word in words if word not in ignore_letters]
     words = sorted(set(words))
 
     classes = sorted(set(classes))
@@ -52,7 +53,7 @@ def train_model():
     for document in documents:
         bag = []
         word_patterns = document[0]
-        word_patterns = [lemmetizer.lemmatize(word.lower()) for word in word_patterns]
+        word_patterns = [lemmatizer.lemmatize(word.lower()) for word in word_patterns]
         for word in words:
             bag.append(1) if word in word_patterns else bag.append(0)
 
@@ -82,12 +83,15 @@ def train_model():
     model.save("chatbotmodel.h5", mychatbotmodel)
     print("Done")
 
+
 model = load_model("chatbotmodel.h5")
+
 
 def clean_up_sentence(sentence):
     sentence_words = nltk.word_tokenize(sentence)
     sentence_words = [lemmatizer.lemmatize(word) for word in sentence_words]
     return sentence_words
+
 
 @app.route("/uploadfile", methods=["GET", "POST"])
 def upload_file():
@@ -118,7 +122,6 @@ def upload_file():
     )
 
 
-
 def bag_of_words(sentence):
     sentence_words = clean_up_sentence(sentence)
     bag = [0] * len(words)
@@ -127,6 +130,7 @@ def bag_of_words(sentence):
             if word == w:
                 bag[i] = 1
     return np.array(bag)
+
 
 def predict_class(sentence):
     bow = bag_of_words(sentence)
@@ -140,6 +144,7 @@ def predict_class(sentence):
         return_list.append({"intent": classes[r[0]], "probability": str(r[1])})
     return return_list
 
+
 def get_response(intents_list, intents_json):
     tag = intents_list[0]["intent"]
     list_of_intents = intents_json["intents"]
@@ -148,6 +153,7 @@ def get_response(intents_list, intents_json):
             result = random.choice(i["response"])
             break
     return result
+
 
 @app.route("/", methods=["GET"])
 def home():
@@ -168,6 +174,7 @@ def home():
     else:
         return "Please provide a text parameter."
 
+
 def run():
     try:
         app.run(host="0.0.0.0", port=8000)
@@ -175,6 +182,7 @@ def run():
         sys.exit(0)
     finally:
         run()
+
 
 @app.route("/restart", methods=["POST"])
 def restart():
