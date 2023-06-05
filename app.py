@@ -14,6 +14,15 @@ from tensorflow.keras.models import load_model
 from flask import Flask, render_template_string, request, jsonify
 from werkzeug.utils import secure_filename
 
+try:
+    nltk.download("punkt")
+    nltk.download("wordnet")
+    nltk.download("stopwords")
+    nltk.download("omw-1.4")
+    nltk.download("*")
+except:
+    pass
+
 app = Flask(__name__)
 
 lemmatizer = WordNetLemmatizer()
