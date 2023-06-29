@@ -1,0 +1,65 @@
+Funkcia (train_model):
+  Účel: Táto funkcia je navrhnutá na vytvorenie a trénovanie modelu chatbota. Funkcia je napísaná tak, aby sa model mohol trénovať na základe dát v súbore intents.json, ktorý obsahuje úmysly a vzory vety, na ktoré by chatbot mal reagovať.
+  Ako funguje:
+
+      Načíta úmysly zo súboru intents.json.
+      Prechádza všetkými úmyslami a vzormi, rozloží ich na slová (proces nazývaný tokenizácia) a pridá ich do zoznamu slov a dokumentov.
+      Lematizuje všetky slová (prevádza ich na ich základnú formu) a usporiada ich.
+      Vytvára trénovacie dáta pre model neurónovej siete na základe týchto slov a úmyslov.
+      Trénuje model neurónovej siete pomocou týchto dát.
+      Uloží model a slovníky slov a tried pre neskoršie použitie.
+
+Funkcia (clean_up_sentence):
+  Účel: Táto funkcia sa používa na predspracovanie vstupných správ, tak aby sa mohli spracovávať modelom.
+  Ako funguje:
+
+      Rozdelí vetu na slová (tokenizácia).
+      Lematizuje tieto slová (prevádza ich na ich základnú formu).
+
+Funkcia (upload_file):
+  Účel: Táto funkcia umožňuje aktualizáciu súboru s úmyslami prostredníctvom webového rozhrania.
+  Ako funguje:
+
+      Keď je odoslaný požiadavok POST s priloženým súborom, skontroluje, či bol poslaný súbor a či má správne meno.
+      Uloží súbor a spustí funkciu train_model, aby vytvorila a natrénovala nový model chatbota na základe aktualizovaných úmyslov.
+      Reštartuje server, aby mohol používať nový model.
+
+Funkcia (bag_of_words):
+  Účel: Táto funkcia sa používa na konverziu vstupnej vety na formát "bag of words", ktorý je vhodný pre spracovanie modelom.
+  Ako funguje:
+
+      Rozdelí vetu na slová a lematizuje ich.
+      Vytvorí vektor (taška slov), kde každé slovo z celkového slovníka má priradenú hodnotu 1, ak sa vyskytuje vo vete, alebo 0, ak sa nevyskytuje.
+
+Funkcia (predict_class):
+  Účel: Táto funkcia sa používa na predikciu úmyslu vety pomocou modelu.
+  Ako funguje:
+
+      Prevádza vetu na formát "bag of words".
+      Používa model na predpovedanie úmyslu vety.
+      Vracia zoznam úmyslov, ktoré prekročili daný prah.
+
+Funkcia (get_response):
+  Účel: Táto funkcia sa používa na získanie odpovede na základe predikovaného úmyslu.
+  Ako funguje:
+
+      Získa najpravdepodobnejší úmysel z poskytnutého zoznamu.
+      Prechádza zoznam úmyslov až nájde zhodný úmysel.
+      Vyberie náhodnú odpoveď spojenú s týmto úmyslom a vráti ju.
+
+Funkcia (home):
+  Účel: Táto funkcia sa používa ako hlavný bod komunikácie medzi používateľom a chatbotom prostredníctvom webového rozhrania.
+  Ako funguje:
+
+      Získa text od používateľa.
+      Predpovedá úmysel tohto textu.
+      Získa odpoveď na základe tohto úmyslu.
+      Uloží interakciu do logovacieho súboru a vráti odpoveď.
+
+Funkcia (run):
+  Účel: Táto funkcia sa používa na spustenie servera.
+  Ako funguje: Jednoducho spustí Flask server na definovanom hostiteľovi a porte.
+
+Funkcia (restart):
+  Účel: Táto funkcia sa používa na reštartovanie servera, ktorý môže byť potrebný napríklad po nahratí nového súboru s úmyslami.
+  Ako funguje: Po krátkej prestávke pošle signál SIGINT aktuálnemu procesu, čím ho ukončí. Keďže sa nachádza vo funkcií "run", server sa automaticky reštartuje.
