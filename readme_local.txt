@@ -10,3 +10,4 @@ nainstalovat potrebne kniznice:
 
 spustit server:
  - flask run
+
