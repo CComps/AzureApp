@@ -1,3 +1,5 @@
+Na lokalne spustanie nebudeme pouzivat gunicorn ale flask
+
 vytvorenie vyrtualneho prostredia: 
  - python -m venv .venv
 aktivovanie vyrtualneho prostredia:
