@@ -1,11 +1,11 @@
 budete potrebovať:
 
 *  Python
-*   numpy
-*   nltk
-*   tensorflow
-*   flask
-*   werkzeug
+*  numpy
+*  nltk
+*  tensorflow
+*  flask
+*  werkzeug
 
 Nasledujúce pokyny pomôžu s inštaláciou týchto knižníc:
 
@@ -17,12 +17,8 @@ Nasledujúce pokyny pomôžu s inštaláciou týchto knižníc:
 
  *  Otvorte príkazový riadok (cmd.exe na Windows alebo Terminal na MacOS alebo Linux) a zadajte nasledujúce príkazy:
 
-      pip install numpy
-      pip install nltk
-      pip install tensorflow
-      pip install flask
-      pip install Werkzeug
-      pip install gunicorn
+      pip install -r requirements.txt  ### toto nainstaluje flask, werkzeug, numpy a ostatne potrebne kniznice. Toto budeme potrebovat aby pythonovy kod fungoval.
+      pip install gunicorn             ### toto nainstaluje gunicorn, ktory pouzijeme na spustanie kodu
 
 
 Tieto príkazy by mali stiahnuť a nainštalovať všetky potrebné knižnice.

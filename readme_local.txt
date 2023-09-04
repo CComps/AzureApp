@@ -1,5 +1,3 @@
-Na lokalne spustanie nebudeme pouzivat gunicorn ale flask
-
 vytvorenie vyrtualneho prostredia: 
  - python -m venv .venv
 aktivovanie vyrtualneho prostredia:
@@ -11,5 +9,4 @@ nainstalovat potrebne kniznice:
  - pip install -r requirements.txt
 
 spustit server:
- - flask run
-
+ - gunicorn -w 4 -t 100 app:app
